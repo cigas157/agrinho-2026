@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="AgroPegada Corporate - Plataforma profissional de eficiência hídrica e carbónica para o agronegócio">
+    <meta name="author" content="Concurso Agrinho 2026">
+    <meta name="keywords" content="agronegócio, sustentabilidade, pegada carbono, eficiência hídrica, ESG">
+    <title>AgroPegada Corporate · Sustentabilidade no Agronegócio</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Chart.js para gráficos profissionais -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Estilos principais -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+
+<!-- Navbar Corporativa -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-seedling"></i>
+            <span>AgroPegada<span class="light"> CORPORATE</span></span>
+        </div>
+        <div class="nav-right">
+            <div class="company-info">
+                <i class="fas fa-building"></i>
+                <span>AgroTech Solutions</span>
+            </div>
+            <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="main-container">
+    <!-- Header Hero -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>🌱 Gestão Inteligente de <span class="highlight">Recursos Agroambientais</span></h1>
+            <p>Plataforma corporativa para mensuração de eficiência hídrica, pegada de carbono e tomada de decisão sustentável</p>
+            <div class="hero-badges">
+                <span class="hero-badge"><i class="fas fa-chart-line"></i> ESG Compliance</span>
+                <span class="hero-badge"><i class="fas fa-certificate"></i> GHG Protocol</span>
+                <span class="hero-badge"><i class="fas fa-water"></i> Water Footprint</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard de KPIs -->
+    <div class="dashboard-grid" id="dashboardMetrics">
+        <div class="metric-card carbon">
+            <div class="metric-header">
+                <i class="fas fa-cloud"></i>
+                <span class="metric-title">Pegada de Carbono</span>
+            </div>
+            <div class="metric-value" id="carbonMetric">0</div>
+            <div class="metric-unit">kg CO₂e/ano</div>
+            <div class="metric-footer" id="carbonTrend">-</div>
+        </div>
+        
+        <div class="metric-card water">
+            <div class="metric-header">
+                <i class="fas fa-tint"></i>
+                <span class="metric-title">Consumo Hídrico</span>
+            </div>
+            <div class="metric-value" id="waterMetric">0</div>
+            <div class="metric-unit">m³/ano</div>
+            <div class="metric-footer" id="waterTrend">-</div>
+        </div>
+        
+        <div class="metric-card efficiency">
+            <div class="metric-header">
+                <i class="fas fa-chart-line"></i>
+                <span class="metric-title">Intensidade Carbono</span>
+            </div>
+            <div class="metric-value" id="efficiencyMetric">0</div>
+            <div class="metric-unit">kgCO₂/ha</div>
+        </div>
+        
+        <div class="metric-card finance">
+            <div class="metric-header">
+                <i class="fas fa-coins"></i>
+                <span class="metric-title">Custo Anual Estimado</span>
+            </div>
+            <div class="metric-value" id="costMetric">R$ 0</div>
+            <div class="metric-unit">potencial de economia</div>
+        </div>
+    </div>
+
+    <!-- Formulário Multi-step Corporativo -->
+    <div class="form-container">
+        <!-- Step Header -->
+        <div class="step-header">
+            <div class="step-tab active" data-step="0">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>1. Dados da Fazenda</span>
+            </div>
+            <div class="step-tab" data-step="1">
+                <i class="fas fa-tractor"></i>
+                <span>2. Frota & Máquinas</span>
+            </div>
+            <div class="step-tab" data-step="2">
+                <i class="fas fa-sprinkler"></i>
+                <span>3. Irrigação</span>
+            </div>
+            <div class="step-tab" data-step="3">
+                <i class="fas fa-chart-pie"></i>
+                <span>4. Relatório Executivo</span>
+            </div>
+        </div>
+
+        <!-- Step 1 - Dados da Fazenda -->
+        <div class="step-content active" data-step="0">
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-ruler-combined"></i> Área cultivada (hectares)</label>
+                    <input type="number" id="areaHa" class="form-input" placeholder="Ex: 120 hectares" step="0.1" value="120">
+                    <div class="error-msg" id="areaError"></div>
+                    <div class="hint">Mínimo 0.1 ha · Máximo 10.000 ha</div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-seedling"></i> Cultura principal</label>
+                    <select id="culturaTipo" class="form-input">
+                        <option value="graos">🌾 Grãos (Soja/Milho/Trigo)</option>
+                        <option value="horta">🥬 Hortaliças e Frutas</option>
+                        <option value="pastagem">🐄 Pastagem e Pecuária</option>
+                        <option value="perene">☕ Café/Cacau/Perenes</option>
+                        <option value="cana">🌿 Cana-de-açúcar</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-clock"></i> Horas de trator por semana</label>
+                    <input type="number" id="horasTratorSem" class="form-input" placeholder="Ex: 45 horas" step="0.5" value="45">
+                    <div class="error-msg" id="horasError"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 - Frota e Máquinas -->
+        <div class="step-content" data-step="1">
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-gas-pump"></i> Consumo médio do trator (L/h)</label>
+                    <input type="number" id="consumoLitroHora" class="form-input" placeholder="Ex: 9.5 L/h" step="0.1" value="9.5">
+                    <div class="error-msg" id="consumoError"></div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-cogs"></i> Horas anuais de implementos</label>
+                    <input type="number" id="horasImplementos" class="form-input" placeholder="Ex: 520 horas" step="1" value="520">
+                    <div class="error-msg" id="impleError"></div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-calendar-alt"></i> Idade média da frota (anos)</label>
+                    <input type="number" id="idadeFrota" class="form-input" placeholder="0 = novo" step="1" value="7">
+                    <div class="hint">📊 Frota mais antiga = maior emissão de carbono</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 - Irrigação -->
+        <div class="step-content" data-step="2">
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fas fa-water"></i> Tipo de irrigação</label>
+                    <select id="tipoRega" class="form-input">
+                        <option value="gotejamento">💧 Gotejamento (88% eficiência)</option>
+                        <option value="pivot">🔄 Pivô central (78% eficiência)</option>
+                        <option value="aspersao">💦 Aspersão convencional (68% eficiência)</option>
+                        <option value="sulco">🌊 Sulco/inundação (45% eficiência)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-fill-drip"></i> Volume de água aplicado (m³/ha/ano)</label>
+                    <input type="number" id="aguaM3" class="form-input" placeholder="Ex: 5.200 m³" step="100" value="5200">
+                    <div class="error-msg" id="aguaError"></div>
+                    <div class="hint">Referência: Soja ~3.500 | Milho ~5.000 | Café ~6.000 m³/ha/ano</div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-plug"></i> Fonte de energia da rega</label>
+                    <select id="energiaRega" class="form-input">
+                        <option value="diesel">🛢️ Diesel (alta emissão)</option>
+                        <option value="eletrica">🔌 Elétrica (emissão média)</option>
+                        <option value="solar">☀️ Solar fotovoltaica (baixa emissão)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 - Relatório Executivo -->
+        <div class="step-content" data-step="3">
+            <div class="report-executive" id="reportExecutive">
+                <div class="report-header">
+                    <h3><i class="fas fa-chart-line"></i> Relatório de Sustentabilidade Agropecuária</h3>
+                    <div class="report-actions">
+                        <button id="btnExportPDF" class="btn-outline"><i class="fas fa-file-pdf"></i> Exportar PDF</button>
+                        <button id="btnRefreshReport" class="btn-outline"><i class="fas fa-sync-alt"></i> Atualizar</button>
+                    </div>
+                </div>
+                <div id="reportContent" class="report-content">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-chart-simple"></i>
+                        <p>Preencha os dados das etapas anteriores e clique em "Atualizar"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botões de Navegação -->
+        <div class="navigation-buttons">
+            <button id="prevStep" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
+            <button id="nextStep" class="btn-primary">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Gráficos de Análise -->
+    <div class="charts-section">
+        <div class="section-header">
+            <h3><i class="fas fa-chart-pie"></i> Análise Detalhada</h3>
+            <p>Composição da pegada ambiental e recomendações estratégicas</p>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h4>Composição da Pegada de Carbono</h4>
+                <canvas id="carbonCompositionChart" width="400" height="250"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Eficiência Hídrica por Tipo de Irrigação</h4>
+                <canvas id="waterEfficiencyChart" width="400" height="250"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Benchmark Setorial</h4>
+                <canvas id="benchmarkChart" width="400" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Compensação Ambiental -->
+    <div class="compensation-section">
+        <div class="compensation-content">
+            <i class="fas fa-tree"></i>
+            <div>
+                <h3>Neutralização de Carbono</h3>
+                <p>Para neutralizar sua pegada de carbono, é necessário plantar <strong id="treesCount">0</strong> árvores nativas</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="compensationProgress" style="width: 0%"></div>
+                </div>
+            </div>
+            <button id="btnCompensate" class="btn-success">
+                <i class="fas fa-hand-holding-heart"></i> Projetos de Compensação
+            </button>
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <i class="fas fa-leaf"></i>
+            <span>AgroPegada Corporate · Metodologia GHG Protocol + Water Footprint Network</span>
+        </div>
+        <div class="footer-links">
+            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+            <a href="#"><i class="fas fa-file-alt"></i> Documentação</a>
+            <a href="#"><i class="fas fa-envelope"></i> Contato</a>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        © 2026 Concurso Agrinho · Tecnologia para o Agro Sustentável
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
